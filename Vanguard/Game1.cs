@@ -11,9 +11,7 @@ namespace Vanguard
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D senseiTexture;
-        const int senseiWidth = 16;
-        const int senseiHeight = 23;
+        Player player;
 
         public Game1()
         {
@@ -30,7 +28,7 @@ namespace Vanguard
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            
+            player = new Player(this, new Vector2(50, 50));
 
             base.Initialize();
         }
@@ -43,9 +41,9 @@ namespace Vanguard
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            senseiTexture = Content.Load<Texture2D>("sensei");
 
             // TODO: use this.Content to load your game content here
+            player.Load("sensei");
         }
 
         /// <summary>
@@ -68,7 +66,8 @@ namespace Vanguard
                 Exit();
 
             // TODO: Add your update logic here
-
+            player.Update(gameTime);
+            
             base.Update(gameTime);
         }
 
@@ -84,7 +83,7 @@ namespace Vanguard
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(senseiTexture, new Rectangle(50, 100, senseiWidth, senseiHeight), Color.White);
+            player.Draw(spriteBatch);
 
             spriteBatch.End();
 
