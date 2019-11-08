@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Linq;
 
 namespace Vanguard
 {
@@ -12,6 +13,8 @@ namespace Vanguard
 
         public Texture2D Texture { get; set; }
 
+        public Animation Animation { get; set; }
+
         private readonly Game _game;
 
         public Player(Game game, Vector2 startingPos)
@@ -21,9 +24,20 @@ namespace Vanguard
             Velocity = new Vector2(3, 3);
         }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Animation.Draw(spriteBatch, Position);
+        }
+
+        public void Load(string contentName)
+        {
+            Texture = _game.Content.Load<Texture2D>("smiley-walk");
+            Animation = new Animation(Texture, 4, 4);
+        }
+        
         public void Update(GameTime gameTime)
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 var newX = Position.X + Velocity.X;
                 var newY = Position.Y;
@@ -50,16 +64,9 @@ namespace Vanguard
                 var newY = Position.Y + Velocity.Y;
                 Position = new Vector2(newX, newY);
             }
-        }
 
-        public void Load(string contentName)
-        {
-            Texture = _game.Content.Load<Texture2D>("sensei");
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height), Color.White);
+            if(Keyboard.GetState().GetPressedKeys().Any())
+                Animation.Update();
         }
     }
 }
