@@ -13,12 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin File.spritefont
+#begin console.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:File.spritefont;console.spritefont
+/build:console.spritefont
 
 #begin sensei.png
 /importer:TextureImporter
