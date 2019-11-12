@@ -81,9 +81,9 @@ namespace Vanguard
                 Position = new Vector2(bounds.X, checky);
             }
 
-            if(checkx >= bounds.Width)
+            if(checkx >= bounds.Width - Animation.FrameWidth)
             {
-                Position = new Vector2(bounds.Width, checky);
+                Position = new Vector2(bounds.Width - Animation.FrameWidth, checky);
             }
 
             if (checky <= bounds.Y)
@@ -91,9 +91,9 @@ namespace Vanguard
                 Position = new Vector2(checkx, bounds.Y);    
             }
 
-            if(checky >= bounds.Height)
+            if(checky >= bounds.Height - Animation.FrameHeight)
             {
-                Position = new Vector2(checkx, bounds.Height);
+                Position = new Vector2(checkx, bounds.Height - Animation.FrameHeight);
             }
         }
     }

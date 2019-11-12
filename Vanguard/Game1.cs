@@ -12,6 +12,7 @@ namespace Vanguard
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        private SpriteFont font;
 
         public Game1()
         {
