@@ -11,6 +11,16 @@ namespace Vanguard
 
         public int Columns { get; set; }
 
+        public int FrameWidth
+        {
+            get { return Texture.Width / Columns; }
+        }
+
+        public int FrameHeight
+        {
+            get { return Texture.Height / Rows; }
+        }
+
         private int currentFrame;
 
         private int totalFrames;

@@ -36,13 +36,13 @@ namespace Vanguard
         }
         
         public void Update(GameTime gameTime)
-        {
+        { 
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 var newX = Position.X + Velocity.X;
                 var newY = Position.Y;
                 Position = new Vector2(newX, newY);
-            }
+            }   
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
@@ -65,8 +65,36 @@ namespace Vanguard
                 Position = new Vector2(newX, newY);
             }
 
+            CheckScreenBounds();
+
             if(Keyboard.GetState().GetPressedKeys().Any())
                 Animation.Update();
+        }
+
+        private void CheckScreenBounds()
+        {
+            var bounds = _game.GraphicsDevice.PresentationParameters.Bounds;
+            var (checkx, checky) = Position;
+            
+            if(checkx  <= bounds.X)
+            {
+                Position = new Vector2(bounds.X, checky);
+            }
+
+            if(checkx >= bounds.Width - Animation.FrameWidth)
+            {
+                Position = new Vector2(bounds.Width - Animation.FrameWidth, checky);
+            }
+
+            if (checky <= bounds.Y)
+            {
+                Position = new Vector2(checkx, bounds.Y);    
+            }
+
+            if(checky >= bounds.Height - Animation.FrameHeight)
+            {
+                Position = new Vector2(checkx, bounds.Height - Animation.FrameHeight);
+            }
         }
     }
 }
