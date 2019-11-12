@@ -37,64 +37,46 @@ namespace Vanguard
         
         public void Update(GameTime gameTime)
         { 
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) && IsInBoundsRight())
             {
                 var newX = Position.X + Velocity.X;
                 var newY = Position.Y;
                 Position = new Vector2(newX, newY);
             }   
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (Keyboard.GetState().IsKeyDown(Keys.Left) && IsInBoundsLeft())
             {
                 var newX = Position.X - Velocity.X;
                 var newY = Position.Y;
                 Position = new Vector2(newX, newY);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) && IsInBoundsUp())
             {
                 var newX = Position.X;
                 var newY = Position.Y - Velocity.Y;
                 Position = new Vector2(newX, newY);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Keys.Down) && IsInBoundsDown())
             {
                 var newX = Position.X;
                 var newY = Position.Y + Velocity.Y;
                 Position = new Vector2(newX, newY);
             }
 
-            CheckScreenBounds();
-
             if(Keyboard.GetState().GetPressedKeys().Any())
                 Animation.Update();
         }
 
-        private void CheckScreenBounds()
-        {
-            var bounds = _game.GraphicsDevice.PresentationParameters.Bounds;
-            var (checkx, checky) = Position;
-            
-            if(checkx  <= bounds.X)
-            {
-                Position = new Vector2(bounds.X, checky);
-            }
+        private bool IsInBoundsLeft() => Position.X >= 0;
 
-            if(checkx >= bounds.Width - Animation.FrameWidth)
-            {
-                Position = new Vector2(bounds.Width - Animation.FrameWidth, checky);
-            }
+        private bool IsInBoundsRight() => 
+            Position.X <= _game.GraphicsDevice.PresentationParameters.Bounds.Width - Animation.FrameWidth;
 
-            if (checky <= bounds.Y)
-            {
-                Position = new Vector2(checkx, bounds.Y);    
-            }
+        private bool IsInBoundsUp() => Position.Y >= 0;
 
-            if(checky >= bounds.Height - Animation.FrameHeight)
-            {
-                Position = new Vector2(checkx, bounds.Height - Animation.FrameHeight);
-            }
-        }
+        private bool IsInBoundsDown() => 
+            Position.Y <= _game.GraphicsDevice.PresentationParameters.Bounds.Height - Animation.FrameHeight;
     }
 }

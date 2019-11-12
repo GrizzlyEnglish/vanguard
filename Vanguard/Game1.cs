@@ -44,7 +44,7 @@ namespace Vanguard
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            player.Load("sensei");
+            player.Load("smiley-walk");
         }
 
         /// <summary>
